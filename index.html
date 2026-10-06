@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f9">
+  <title>AprovaIA — seu espaço de estudos</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172b45;
+      --muted: #71808e;
+      --subtle: #91a0ae;
+      --line: #e8edf0;
+      --surface: #fff;
+      --canvas: #f6f7f9;
+      --green: #2c7a73;
+      --green-dark: #245e5a;
+      --green-pale: #eaf3f2;
+      --navy: #142d4e;
+      --purple: #7965b5;
+      --amber: #c28632;
+      --shadow: 0 8px 24px rgba(31, 51, 71, .055);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); font-size: 14px; }
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    .app { min-height: 100vh; }
+    .sidebar {
+      width: 246px; background: var(--surface); border-right: 1px solid var(--line);
+      position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column; z-index: 10;
+      padding: 25px 16px 16px;
+    }
+    .brand { padding: 0 12px 38px; display:flex; align-items:center; gap:11px; font-size:20px; font-weight:750; letter-spacing:-.5px; }
+    .brand-mark { width:36px; height:36px; display:grid; place-items:center; background:var(--green); color:#fff; border-radius:12px; }
+    .brand-mark svg { width:20px; }
+    .brand em { color:var(--green); font-style:normal; }
+    .nav-label { color:var(--subtle); text-transform:uppercase; font-size:10px; font-weight:750; letter-spacing:1.35px; padding:0 12px 12px; }
+    .nav { display:grid; gap:5px; }
+    .nav button {
+      display:flex; align-items:center; gap:12px; border:0; background:transparent; color:#657585;
+      padding:12px; text-align:left; border-radius:10px; cursor:pointer; font-size:13px; font-weight:550;
+    }
+    .nav button:hover { background:#f7f9fa; color:var(--ink); }
+    .nav button.active { color:var(--green-dark); background:var(--green-pale); font-weight:700; }
+    .nav svg { width:17px; height:17px; flex:none; }
+    .sidebar-bottom { margin-top:auto; }
+    .profile { border-top:1px solid var(--line); padding:18px 8px 4px; display:flex; align-items:center; gap:10px; }
+    .avatar { width:36px; height:36px; border-radius:50%; background:#f5dccb; color:#895b43; display:grid; place-items:center; font-weight:750; font-size:12px; }
+    .profile strong { display:block; font-size:12px; }
+    .profile small { color:var(--muted); display:block; margin-top:3px; font-size:10px; }
+    .main { margin-left:246px; padding:32px clamp(24px, 4vw, 58px) 54px; max-width:1600px; }
+    .topline { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:28px; }
+    .date-label, .eyebrow { color:var(--subtle); text-transform:uppercase; letter-spacing:.8px; font-size:10px; font-weight:700; }
+    .top-actions { display:flex; gap:9px; }
+    .icon-button { width:36px; height:36px; display:grid; place-items:center; border:1px solid var(--line); border-radius:10px; color:#627283; background:#fff; cursor:pointer; }
+    .icon-button svg { width:16px; height:16px; }
+    h1, h2, h3, p { margin-top:0; }
+    h1 { font-size:clamp(25px, 3vw, 31px); letter-spacing:-1px; line-height:1.2; margin:0 0 8px; }
+    h2 { font-size:19px; letter-spacing:-.35px; margin:0 0 6px; }
+    h3 { font-size:14px; letter-spacing:-.1px; margin:0 0 7px; }
+    .subtitle { color:var(--muted); margin:0; font-size:13px; line-height:1.6; }
+    .view { display:none; }
+    .view.active { display:block; animation:appear .18s ease-out; }
+    @keyframes appear { from { opacity:.5; transform:translateY(3px); } to { opacity:1; transform:none; } }
+    .hero {
+      margin-top:24px; padding:31px 34px; min-height:222px; border-radius:17px; overflow:hidden;
+      position:relative; color:white; background:linear-gradient(115deg, #142d4e, #284d70);
+      display:flex; align-items:center;
+    }
+    .hero-copy { max-width:615px; position:relative; z-index:1; }
+    .hero .eyebrow { color:#bde1d9; background:rgba(255,255,255,.12); padding:7px 10px; display:inline-block; border-radius:20px; margin-bottom:15px; }
+    .hero h2 { font-size:clamp(23px, 3vw, 29px); line-height:1.22; margin:0 0 12px; letter-spacing:-.7px; }
+    .hero p { color:#d5e0ea; line-height:1.6; font-size:13px; max-width:555px; margin:0 0 19px; }
+    .hero-art { position:absolute; right:8%; top:50%; transform:translateY(-50%); width:148px; height:148px; opacity:.95; }
+    .hero-art .paper { width:82px; height:105px; background:rgba(255,255,255,.13); position:absolute; left:22px; top:10px; padding:20px 13px; }
+    .hero-art .paper span { display:block; height:3px; background:#bde1d9; border-radius:4px; margin-bottom:9px; }
+    .hero-art .paper span:nth-child(2) { width:80%; }
+    .hero-art .paper span:nth-child(3) { width:90%; }
+    .hero-art .paper span:nth-child(4) { width:65%; }
+    .hero-art .check { width:51px; height:51px; background:#78b8a9; color:white; border-radius:50%; display:grid; place-items:center; position:absolute; right:7px; bottom:13px; border:5px solid #294f70; }
+    .hero-art .check svg { width:22px; }
+    .btn { border:0; border-radius:9px; padding:11px 15px; cursor:pointer; font-weight:700; font-size:12px; display:inline-flex; gap:8px; align-items:center; justify-content:center; text-decoration:none; transition:transform .15s, background .15s; }
+    .btn:hover { transform:translateY(-1px); }
+    .btn-primary { background:var(--green); color:white; }
+    .btn-primary:hover { background:#246a64; }
+    .btn-light { background:white; color:var(--green-dark); }
+    .btn-outline { background:white; color:#405367; border:1px solid var(--line); }
+    .btn-soft { color:var(--green-dark); background:var(--green-pale); }
+    .btn svg { width:15px; height:15px; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:16px; margin:29px 0 14px; }
+    .section-head p { margin:0; color:var(--muted); font-size:11px; }
+    .text-link { border:0; background:none; color:var(--green); font-weight:700; font-size:11px; cursor:pointer; text-decoration:none; padding:4px 0; white-space:nowrap; }
+    .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
+    .stat, .card { border:1px solid #edf0f2; border-radius:13px; background:var(--surface); box-shadow:var(--shadow); }
+    .stat { padding:19px; display:flex; align-items:center; gap:13px; }
+    .stat-icon { width:38px; height:38px; border-radius:12px; background:var(--green-pale); color:var(--green); display:grid; place-items:center; flex:none; }
+    .stat-icon.purple { background:#f0ecfa; color:var(--purple); }
+    .stat-icon.amber { background:#fbf1e2; color:var(--amber); }
+    .stat-icon svg { width:18px; height:18px; }
+    .stat small { display:block; color:var(--muted); font-size:11px; }
+    .stat strong { display:block; font-size:22px; margin:4px 0 2px; letter-spacing:-.5px; }
+    .stat .trend { color:var(--green); font-size:10px; }
+    .columns { display:grid; grid-template-columns:minmax(0, 1.55fr) minmax(280px, .9fr); gap:16px; }
+    .card { padding:21px; }
+    .proof-row { display:flex; align-items:center; gap:13px; }
+    .file-icon { width:40px; height:46px; border-radius:8px; background:#fcece8; color:#c66d5d; display:grid; place-items:center; flex:none; }
+    .file-icon svg { width:19px; }
+    .proof-meta { flex:1; min-width:0; }
+    .proof-meta strong { display:block; font-size:12px; margin-bottom:5px; }
+    .proof-meta small { color:var(--muted); font-size:10px; }
+    .badge { color:var(--green); background:var(--green-pale); padding:6px 9px; border-radius:20px; font-size:9px; font-weight:750; letter-spacing:.4px; white-space:nowrap; }
+    .progress-top { display:flex; justify-content:space-between; gap:10px; font-size:10px; margin:18px 0 8px; color:#405367; }
+    .progress-top strong { color:var(--green); }
+    .progress { height:6px; background:#e8ecef; border-radius:99px; overflow:hidden; }
+    .progress span { width:42%; display:block; height:100%; background:var(--green); border-radius:99px; }
+    .next-topic { margin-top:18px; display:flex; align-items:end; justify-content:space-between; gap:12px; }
+    .next-topic small { display:block; font-size:9px; color:var(--subtle); text-transform:uppercase; letter-spacing:.7px; margin-bottom:6px; }
+    .next-topic strong { font-size:12px; }
+    .steps { display:grid; gap:15px; margin-top:18px; }
+    .step { display:flex; align-items:center; gap:11px; }
+    .step-number { width:26px; height:26px; border-radius:50%; background:var(--green-pale); color:var(--green); display:grid; place-items:center; font-size:10px; font-weight:750; flex:none; }
+    .step strong { font-size:11px; display:block; }
+    .step small { font-size:10px; color:var(--muted); display:block; margin-top:3px; }
+    .reading-grid, .library-grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px; }
+    .resource-card { padding:18px; display:flex; flex-direction:column; min-height:180px; }
+    .resource-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
+    .resource-icon { width:35px; height:35px; border-radius:11px; display:grid; place-items:center; background:#f0ecfa; color:var(--purple); }
+    .resource-icon.green { background:var(--green-pale); color:var(--green); }
+    .resource-icon.amber { background:#fbf1e2; color:var(--amber); }
+    .resource-icon svg { width:17px; }
+    .resource-card p { color:var(--muted); font-size:11px; line-height:1.55; margin:0 0 17px; }
+    .resource-card .text-link { margin-top:auto; align-self:flex-start; }
+    .resource-tags { display:flex; gap:6px; flex-wrap:wrap; margin:0 0 9px; }
+    .reading-list { color:var(--muted); font-size:11px; margin:0 0 16px; }
+    .reading-list summary { color:var(--green-dark); cursor:pointer; font-weight:700; }
+    .reading-list ul { display:grid; gap:7px; padding-left:18px; line-height:1.5; }
+    .tag { background:#f3f5f6; color:#697989; border-radius:20px; padding:4px 7px; font-size:9px; }
+    .page-title { margin:4px 0 22px; }
+    .page-title .subtitle { max-width:680px; }
+    .toolbar { display:flex; gap:10px; align-items:center; margin:20px 0 17px; }
+    .search { flex:1; position:relative; }
+    .search svg { position:absolute; width:16px; left:12px; top:50%; transform:translateY(-50%); color:#91a0ae; }
+    .search input { width:100%; border:1px solid var(--line); border-radius:9px; padding:11px 12px 11px 38px; background:#fff; color:var(--ink); outline:none; font-size:12px; }
+    .search input:focus, .field:focus, textarea:focus { border-color:#84b8b0; box-shadow:0 0 0 3px rgba(44,122,115,.09); }
+    .select { border:1px solid var(--line); border-radius:9px; padding:10px 12px; background:#fff; color:#526477; font-size:11px; }
+    .library-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .exam-card { padding:20px; }
+    .exam-head { display:flex; gap:13px; align-items:flex-start; }
+    .exam-card p { color:var(--muted); font-size:11px; line-height:1.6; margin:13px 0 15px; }
+    .exam-bottom { display:flex; justify-content:space-between; align-items:center; gap:10px; border-top:1px solid #edf0f2; padding-top:13px; }
+    .exam-bottom small { color:var(--muted); font-size:10px; }
+    .notice { padding:13px 15px; border:1px solid #e6ecee; border-radius:10px; color:#526477; background:#fff; font-size:11px; line-height:1.55; }
+    .notice strong { color:#405367; }
+    .upload-layout { display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(260px, .8fr); gap:16px; align-items:start; }
+    .upload-card { padding:24px; }
+    .dropzone { margin:18px 0; min-height:190px; border:1.5px dashed #8ab9b1; border-radius:12px; background:#fafcfc; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; transition:background .15s, border-color .15s; }
+    .dropzone.dragover { background:var(--green-pale); border-color:var(--green); }
+    .upload-symbol { width:52px; height:52px; background:var(--green-pale); color:var(--green); border-radius:50%; display:grid; place-items:center; margin-bottom:13px; }
+    .upload-symbol svg { width:23px; }
+    .dropzone strong { font-size:13px; }
+    .dropzone small { color:var(--muted); font-size:11px; margin:7px 0 13px; }
+    .file-status { color:var(--green-dark); font-size:11px; margin-top:10px; min-height:16px; }
+    .field-label { display:block; font-size:11px; font-weight:700; color:#405367; margin:16px 0 7px; }
+    .field, textarea, select.field { width:100%; border:1px solid #dce4e8; border-radius:8px; padding:11px 12px; outline:none; color:#405367; background:#fff; font-size:12px; }
+    textarea { min-height:96px; resize:vertical; line-height:1.5; }
+    .upload-aside { display:grid; gap:13px; }
+    .upload-aside .card { padding:19px; }
+    .check-list { display:grid; gap:12px; list-style:none; padding:0; margin:18px 0 0; }
+    .check-list li { display:flex; align-items:center; gap:9px; color:#426d68; font-size:10px; }
+    .check-list svg { width:14px; height:14px; color:var(--green); flex:none; }
+    .stepbar { display:flex; gap:0; align-items:center; padding:17px 22px; margin-bottom:17px; background:white; border:1px solid var(--line); border-radius:12px; }
+    .stepbar .step { flex:1; }
+    .stepbar .connector { height:1px; background:#d9e1e6; flex:.6; margin:0 10px; }
+    .stepbar .step-number.inactive { background:#edf0f2; color:#82909e; }
+    .stepbar .step strong { white-space:nowrap; }
+    .topic-list { display:grid; gap:9px; margin-top:16px; }
+    .add-topic-row { display:flex; gap:9px; margin-top:16px; }
+    .add-topic-row .field { flex:1; }
+    .suggestion-heading { margin:16px 0 0; color:#526477; font-size:11px; }
+    .topic-suggestions { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .topic-suggestion { border:1px solid #dce4e8; border-radius:999px; padding:7px 11px; color:#426d68; background:#f7faf9; font:inherit; font-size:11px; cursor:pointer; }
+    .topic-suggestion:hover { border-color:var(--green); background:var(--green-pale); }
+    .topic-item { display:flex; gap:12px; align-items:center; padding:13px; border:1px solid var(--line); border-radius:9px; background:#fff; }
+    .topic-item input { accent-color:var(--green); }
+    .topic-item strong { font-size:12px; }
+    .topic-item small { display:block; color:var(--muted); margin-top:4px; font-size:10px; }
+    .topic-actions { display:flex; justify-content:space-between; gap:12px; margin-top:18px; }
+    .study-layout { display:grid; grid-template-columns:minmax(0, 1fr) 250px; gap:16px; align-items:start; }
+    .study-card { padding:25px; margin-bottom:14px; }
+    .study-card p { color:#526477; font-size:12px; line-height:1.75; margin:12px 0; }
+    .study-callout { padding:11px 13px; border-radius:8px; background:var(--green-pale); color:#426d68; font-size:11px; margin-top:15px; }
+    .question { padding:15px; border:1px solid var(--line); border-radius:9px; margin-top:13px; font-size:12px; line-height:1.6; }
+    .question button { margin-top:10px; border:0; background:none; color:var(--green); font-size:10px; font-weight:750; padding:0; cursor:pointer; }
+    .answer { display:none; margin-top:10px; color:#526477; font-size:11px; }
+    .answer.visible { display:block; }
+    .toc-card { padding:18px; position:sticky; top:20px; }
+    .toc-card h3 { margin-bottom:5px; }
+    .toc-card small { color:var(--muted); font-size:10px; }
+    .toc-progress { height:5px; background:#e8ecef; border-radius:9px; margin:13px 0 16px; overflow:hidden; }
+    .toc-progress span { height:100%; width:8%; background:var(--green); display:block; }
+    .toc-list { list-style:none; padding:0; margin:0; display:grid; gap:3px; }
+    .toc-list button { width:100%; text-align:left; border:0; background:none; color:#657585; font-size:10px; border-radius:6px; padding:8px; cursor:pointer; }
+    .toc-list button:hover, .toc-list button.selected { background:var(--green-pale); color:var(--green-dark); font-weight:700; }
+    .chat-card { background:#f0ecfa; padding:16px; border-radius:12px; margin-top:13px; }
+    .chat-card p { color:#71648f; font-size:10px; line-height:1.5; margin:6px 0 12px; }
+    .chat-input { display:flex; background:white; border-radius:7px; padding:3px; }
+    .chat-input input { border:0; min-width:0; padding:7px; font-size:10px; outline:0; }
+    .chat-input button { border:0; border-radius:6px; color:#fff; background:var(--purple); width:30px; cursor:pointer; }
+    .empty { text-align:center; padding:45px 20px; color:var(--muted); }
+    .toast { position:fixed; left:50%; bottom:22px; transform:translate(-50%, 20px); padding:12px 17px; color:#fff; background:#213d50; border-radius:10px; box-shadow:var(--shadow); font-size:12px; opacity:0; pointer-events:none; transition:.2s; z-index:30; }
+    .toast.visible { opacity:1; transform:translate(-50%,0); }
+    .auth-screen { min-height:100vh; display:grid; place-items:center; padding:24px; background:radial-gradient(ellipse at 20% 5%, #eaf3f2, transparent 45%), var(--canvas); }
+    .auth-card { width:min(100%, 430px); background:#fff; border:1px solid var(--line); border-radius:18px; padding:34px; box-shadow:var(--shadow); }
+    .auth-card .brand { padding:0; margin-bottom:30px; }
+    .auth-card h1 { font-size:26px; }
+    .auth-card .subtitle { margin:9px 0 22px; }
+    .adult-confirmation { display:flex; gap:10px; align-items:flex-start; padding:12px; margin:-7px 0 15px; color:#526477; background:#f7f9fa; border:1px solid var(--line); border-radius:9px; font-size:11px; line-height:1.5; cursor:pointer; }
+    .adult-confirmation input { accent-color:var(--green); flex:none; margin:2px 0 0; }
+    .google-button { width:100%; background:#fff; border:1px solid #dce4e8; color:#34465a; }
+    .google-button svg { width:17px; height:17px; }
+    .auth-divider { display:flex; align-items:center; gap:12px; color:var(--subtle); font-size:10px; margin:16px 0; }
+    .auth-divider:before, .auth-divider:after { content:""; height:1px; flex:1; background:var(--line); }
+    .auth-message { color:var(--muted); font-size:11px; line-height:1.55; margin:18px 0 0; }
+    .auth-error { color:#a53b36; background:#fff1ef; border-radius:8px; padding:10px; font-size:11px; line-height:1.5; margin:12px 0; }
+    .auth-config { background:#f7f9fa; border-radius:9px; padding:12px; margin-top:14px; color:#657585; font-size:10px; line-height:1.6; }
+    .auth-config a { color:var(--green-dark); font-weight:700; }
+    .profile { position:relative; }
+    .signout-button { margin-left:auto; border:0; background:transparent; color:#82909e; cursor:pointer; padding:7px; border-radius:7px; }
+    .signout-button:hover { background:#f3f5f6; color:var(--ink); }
+    .signout-button svg { width:16px; height:16px; display:block; }
+    [hidden] { display:none !important; }
+    .mobile-menu { display:none; }
+    @media (max-width: 1120px) {
+      .hero-art { right:4%; opacity:.55; }
+      .columns { grid-template-columns:1fr; }
+      .reading-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .sidebar { width:100%; height:62px; inset:auto 0 0; flex-direction:row; padding:6px 8px; border-right:0; border-top:1px solid var(--line); justify-content:space-around; }
+      .brand, .nav-label, .sidebar-bottom { display:none; }
+      .nav { display:flex; width:100%; justify-content:space-around; gap:0; }
+      .nav button { width:20%; padding:7px 2px; flex-direction:column; gap:3px; justify-content:center; font-size:8px; border-radius:8px; }
+      .nav svg { width:17px; height:17px; }
+      .main { margin:0; padding:23px 17px 85px; }
+      .auth-card { padding:27px 22px; }
+      .topline { margin-bottom:22px; }
+      .hero { padding:24px 21px; min-height:245px; }
+      .hero-art { right:-27px; top:27px; transform:none; opacity:.2; }
+      .hero-copy { max-width:100%; }
+      .hero p { max-width:360px; }
+      .stats { gap:8px; }
+      .stat { padding:12px 10px; gap:8px; align-items:flex-start; flex-direction:column; }
+      .stat-icon { width:32px; height:32px; }
+      .stat strong { font-size:19px; }
+      .stat small { font-size:9px; min-height:24px; }
+      .columns, .upload-layout, .study-layout { grid-template-columns:1fr; }
+      .reading-grid { grid-template-columns:1fr; }
+      .library-grid { grid-template-columns:1fr; }
+      .toc-card { position:static; order:-1; }
+      .toolbar { flex-wrap:wrap; }
+      .search { flex-basis:100%; }
+      .section-head { align-items:flex-start; }
+      .section-head h2 { font-size:17px; }
+      .stepbar { padding:13px 10px; }
+      .stepbar .connector { margin:0 4px; flex:.3; }
+      .stepbar .step { gap:6px; }
+      .stepbar .step strong { font-size:9px; }
+      .stepbar .step-number { width:22px; height:22px; }
+      .exam-bottom { align-items:flex-start; flex-direction:column; }
+      .topic-actions { flex-direction:column-reverse; }
+      .topic-actions .btn { width:100%; }
+    }
+    @media (max-width: 390px) {
+      .date-label { font-size:8px; }
+      .top-actions .icon-button:last-child { display:none; }
+      .proof-row { flex-wrap:wrap; }
+      .proof-row .badge { margin-left:53px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="auth-screen" id="auth-screen">
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>Aprova<em>IA</em></span>
+      </div>
+      <div class="eyebrow">SEU ESPAÇO DE ESTUDOS</div>
+      <h1>Entre para estudar com foco</h1>
+      <p class="subtitle">Entre com sua conta Google para analisar provas, criar apostilas e continuar de onde parou. O AprovaIA com IA é exclusivo para pessoas com 18 anos ou mais.</p>
+      <label class="adult-confirmation"><input type="checkbox" id="adult-confirmation"><span>Confirmo que tenho 18 anos ou mais e entendo que este serviço é destinado exclusivamente a adultos.</span></label>
+      <button class="btn google-button" id="google-signin" disabled>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.72 7.18l7.24 5.62c4.22-3.9 6.52-9.62 6.52-17.27Z"/><path fill="#FBBC05" d="M10.53 28.59A14.5 14.5 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.2A23.9 23.9 0 0 0 0 24c0 3.88.93 7.55 2.56 10.78l7.97-6.19Z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.78l-7.24-5.62c-2 1.35-4.56 2.15-8.66 2.15-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.2C6.51 42.62 14.62 48 24 48Z"/></svg>
+        Continuar com Google
+      </button>
+      <div class="auth-divider">OU</div>
+      <button class="btn btn-primary" id="demo-signin" style="width:100%" disabled>Explorar demonstração (18+)</button>
+      <p class="auth-message" id="auth-status" role="status">Carregando configuração de autenticação…</p>
+      <div class="auth-error" id="auth-error" role="alert" hidden></div>
+      <div class="auth-config" id="auth-config-help" hidden>
+        O app Web do Firebase já está configurado. Para ativar o login, habilite o provedor Google em Authentication → Sign-in method e confira se <code>localhost</code> está em Authentication → Settings → Authorized domains no <a href="https://console.firebase.google.com/project/aprovaia-fd695/authentication/providers" target="_blank" rel="noopener noreferrer">Firebase Console</a>. Para a análise local gratuita, inicie o Ollama e mantenha o modelo configurado no computador.
+      </div>
+    </div>
+  </section>
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>Aprova<em>IA</em></span>
+      </div>
+      <div class="nav-label">Menu principal</div>
+      <nav class="nav">
+        <button class="active" data-view="overview" aria-current="page"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="8" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="3" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="12" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="15" width="7" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7"/></svg><span>Visão geral</span></button>
+        <button data-view="provas"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3.75h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.75a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7"/><path d="M14 4v4h4M9 13h6m-6 4h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Provas</span></button>
+        <button data-view="leituras"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z" stroke="currentColor" stroke-width="1.7"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h8m-8 4h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Leituras</span></button>
+        <button data-view="progresso"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5m0 14h17M7 15l4-4 3 2 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Meu progresso</span></button>
+        <button data-view="apostila"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4.5h14v15H5zM8 8h8m-8 4h8m-8 4h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Apostila</span></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="profile"><div class="avatar" id="user-avatar">LC</div><div><strong id="user-name">Modo demonstração</strong><small id="user-email">Conteúdo de exemplo</small></div><button class="signout-button" id="signout-button" aria-label="Sair da conta" title="Sair da conta" hidden><svg viewBox="0 0 24 24" fill="none"><path d="M10 5H5v14h5m4-4 4-3-4-3m4 3H9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+    </aside>
+
+    <main class="main">
+      <header class="topline">
+        <div class="date-label" id="today-label">SEU ESPAÇO DE ESTUDOS</div>
+        <div class="top-actions">
+          <button class="icon-button" aria-label="Ajuda" title="Ajuda" id="help-button"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9a2.4 2.4 0 1 1 4.1 1.7c-1 .9-1.8 1.2-1.8 2.8m0 3v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+          <button class="icon-button" aria-label="Adicionar prova" title="Adicionar prova" data-goto="upload"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div>
+          <h1>Olá, Laura! Vamos estudar?</h1>
+          <p class="subtitle">Transforme uma prova em um caminho de estudos feito para você.</p>
+        </div>
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">ESTUDE COM FOCO</span>
+            <h2>Sua próxima aprovação começa com uma prova.</h2>
+            <p>Envie um PDF ou cole as questões. Organize os tópicos e monte seu material de estudo.</p>
+            <button class="btn btn-light" data-goto="upload"><span aria-hidden="true">＋</span> Analisar uma prova</button>
+          </div>
+          <div class="hero-art" aria-hidden="true"><div class="paper"><span></span><span></span><span></span><span></span></div><div class="check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+        <div class="notice" id="storage-notice" style="margin-top:14px" hidden><strong>Nota:</strong> a análise e a geração com IA funcionam, mas as apostilas ainda não são salvas em nuvem. O material permanece apenas nesta sessão do navegador.</div>
+        <div class="section-head"><div><h2>Seu espaço de estudos</h2><p>Acompanhe suas provas e encontre novos materiais.</p></div></div>
+        <div class="stats">
+          <article class="stat"><div class="stat-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6zM9 8h6m-6 4h6m-6 4h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><small>Provas analisadas</small><strong id="proof-count">3</strong><span class="trend" id="proof-trend">Organize sua preparação</span></div></article>
+          <article class="stat"><div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16H5zM8 8h8m-8 4h8m-8 4h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><small>Tópicos para estudar</small><strong id="topic-count">12</strong><span class="trend" style="color:var(--purple)" id="topic-trend">em 4 áreas do conhecimento</span></div></article>
+          <article class="stat"><div class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><small>Leituras salvas</small><strong id="reading-count">6</strong><span class="trend" style="color:var(--amber)" id="reading-trend">Continue aprendendo</span></div></article>
+        </div>
+
+        <div class="section-head"><div><h2>Continue de onde parou</h2><p>Retome seu plano de estudos.</p></div><button class="text-link" data-goto="provas">Ver minhas provas →</button></div>
+        <div class="columns">
+          <article class="card">
+            <div class="proof-row"><div class="file-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3.5h8l4 4V20H6zM14 4v4h4M9 12h6m-6 3h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="proof-meta"><strong>UFMG · Prova de exemplo</strong><small>Exemplo de organização · 12 tópicos sugeridos</small></div><span class="badge">EXEMPLO</span></div>
+            <div class="progress-top"><span>Progresso demonstrativo</span><strong>5 de 12 tópicos</strong></div>
+            <div class="progress"><span></span></div>
+            <div class="next-topic"><div><small>PRÓXIMO TÓPICO</small><strong>Funções orgânicas</strong></div><button class="btn btn-primary" data-goto="apostila">Abrir apostila →</button></div>
+          </article>
+          <article class="card">
+            <h3>Como funciona</h3><p class="subtitle">Um fluxo simples para estudar com mais direção.</p>
+            <div class="steps"><div class="step"><span class="step-number">1</span><div><strong>Escolha uma prova</strong><small>Envie um PDF ou cole questões</small></div></div><div class="step"><span class="step-number">2</span><div><strong>Organize os assuntos</strong><small>Revise os tópicos que quer estudar</small></div></div><div class="step"><span class="step-number">3</span><div><strong>Leia e pratique</strong><small>Use materiais e questões complementares</small></div></div></div>
+          </article>
+        </div>
+
+        <div class="section-head"><div><h2>Leituras por vestibular</h2><p>Obras obrigatórias e materiais de apoio organizados para cada prova.</p></div><button class="text-link" data-goto="leituras">Ver todas as leituras →</button></div>
+        <div class="reading-grid" id="overview-readings"></div>
+        <div class="section-head"><div><h2>Encontre provas e gabaritos</h2><p>Acesse acervos públicos das instituições.</p></div><button class="text-link" data-goto="provas">Ver acervos →</button></div>
+        <div class="library-grid" id="overview-exams"></div>
+      </section>
+
+      <section class="view" id="view-provas">
+        <div class="page-title"><div class="eyebrow">BIBLIOTECA</div><h1>Provas e gabaritos</h1><p class="subtitle">Encontre provas anteriores nos acervos oficiais das instituições. Os links levam às páginas de origem.</p></div>
+        <div class="notice"><strong>Sobre os downloads:</strong> os arquivos são disponibilizados pelas próprias instituições. Use “Acessar acervo oficial” para localizar as provas e gabaritos disponíveis.</div>
+        <div class="toolbar"><label class="search"><svg viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="exam-search" type="search" placeholder="Buscar instituição, exame ou ano..." aria-label="Buscar provas"></label><select id="exam-filter" class="select" aria-label="Filtrar provas"><option value="todas">Todas as instituições</option><option value="universidade">Universidades</option><option value="nacional">Exames nacionais</option></select></div>
+        <div class="library-grid" id="all-exams"></div>
+      </section>
+
+      <section class="view" id="view-leituras">
+        <div class="page-title"><div class="eyebrow">BIBLIOTECA</div><h1>Leituras por vestibular</h1><p class="subtitle">Encontre listas oficiais de obras obrigatórias e materiais de apoio separados por prova. Confira sempre a edição e o edital mais recente.</p></div>
+        <div class="toolbar"><label class="search"><svg viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="reading-search" type="search" placeholder="Buscar prova, obra, autor ou assunto..." aria-label="Buscar leituras"></label><select id="reading-exam-filter" class="select" aria-label="Filtrar por vestibular"><option value="todas">Todas as provas</option><option value="fuvest">FUVEST · USP</option><option value="unicamp">Unicamp</option><option value="pas-unb">PAS/UnB</option><option value="geral">Materiais de apoio geral</option></select><select id="reading-filter" class="select" aria-label="Filtrar leituras por área"><option value="todas">Todas as áreas</option><option value="literatura">Literatura</option><option value="quimica">Química</option><option value="matematica">Matemática</option><option value="linguagens">Linguagens</option><option value="geral">Geral</option></select></div>
+        <div class="reading-grid" id="all-readings"></div>
+        <div class="notice" style="margin-top:18px"><strong>Como usar:</strong> as listas oficiais de leitura são identificadas pela prova e pela edição. Os demais links são materiais de apoio, não listas oficiais de obras obrigatórias.</div>
+      </section>
+
+      <section class="view" id="view-upload">
+        <div class="page-title"><div class="eyebrow">NOVA ANÁLISE</div><h1>Vamos começar pela sua prova</h1><p class="subtitle">Adicione o material e conte um pouco sobre o seu objetivo.</p></div>
+        <div class="stepbar"><div class="step"><span class="step-number">1</span><strong>Enviar prova</strong></div><div class="connector"></div><div class="step"><span class="step-number inactive">2</span><strong>Conferir tópicos</strong></div><div class="connector"></div><div class="step"><span class="step-number inactive">3</span><strong>Montar apostila</strong></div></div>
+        <div class="upload-layout">
+          <article class="card upload-card" id="upload-stage">
+            <h2 style="font-size:16px">1. Adicione a prova</h2><p class="subtitle">Escolha um PDF ou cole o texto das questões. Esta prévia funciona localmente e não envia seus arquivos.</p>
+            <div class="dropzone" id="dropzone">
+              <span class="upload-symbol"><svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m-5 5 5-5 5 5M5 15v4h14v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <strong>Arraste o PDF para cá</strong><small>ou selecione um arquivo no seu dispositivo</small>
+              <label class="btn btn-outline" for="proof-file">Escolher arquivo</label>
+              <input type="file" id="proof-file" accept=".pdf,application/pdf" hidden>
+              <div class="file-status" id="file-status" aria-live="polite">PDF até 20 MB</div>
+            </div>
+            <label class="field-label" for="proof-text">Ou cole as questões</label>
+            <textarea id="proof-text" placeholder="Cole aqui o texto da prova ou das questões..."></textarea>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <label><span class="field-label">Instituição (opcional)</span><input class="field" id="institution" placeholder="Ex.: UFMG"></label>
+              <label><span class="field-label">Nível de explicação</span><select class="field" id="level"><option>Intermediário</option><option>Introdutório</option><option>Aprofundado</option></select></label>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="btn btn-primary" id="analyze-button">Continuar →</button></div>
+          </article>
+          <aside class="upload-aside">
+            <article class="card"><h3>O material pode incluir</h3><p class="subtitle">Depois da análise, você poderá revisar os assuntos antes de montar o material.</p><ul class="check-list"><li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Lista de tópicos por área</li><li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Explicações organizadas</li><li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Questões para praticar</li><li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Respostas comentadas</li></ul></article>
+            <div class="notice"><strong>Privacidade:</strong> no modo local, as provas são processadas pelo Ollama neste computador e não são enviadas a serviços de IA externos. Provedores em nuvem só são usados se habilitados explicitamente no servidor.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-topics">
+        <div class="page-title"><div class="eyebrow">NOVA ANÁLISE · ETAPA 2</div><h1>Confira os tópicos sugeridos</h1><p class="subtitle" id="topic-caption">Esta é uma demonstração de como os assuntos poderão ser organizados.</p></div>
+        <div class="stepbar"><div class="step"><span class="step-number">1</span><strong>Enviar prova</strong></div><div class="connector"></div><div class="step"><span class="step-number">2</span><strong>Conferir tópicos</strong></div><div class="connector"></div><div class="step"><span class="step-number inactive">3</span><strong>Montar apostila</strong></div></div>
+        <article class="card"><h2 style="font-size:16px">Tópicos identificados</h2><p class="subtitle">Marque os assuntos que deseja incluir no seu material. Você também pode adicionar quantos tópicos quiser.</p><div class="add-topic-row"><input class="field" id="new-topic" maxlength="120" placeholder="Digite outro tópico para estudar" aria-label="Novo tópico"><button class="btn btn-outline" id="add-topic" type="button">Adicionar tópico</button></div><h3 class="suggestion-heading">Sugestões para complementar</h3><div class="topic-suggestions" id="topic-suggestions" aria-label="Sugestões de tópicos"></div><div class="topic-list" id="topic-list"></div><p class="subtitle">Apostilas longas são geradas em lotes de dois tópicos e podem levar mais tempo.</p><div class="topic-actions"><button class="btn btn-outline" data-goto="upload">← Voltar</button><button class="btn btn-primary" id="create-study-guide">Criar minha apostila →</button></div></article>
+      </section>
+
+      <section class="view" id="view-apostila">
+        <div class="page-title"><div class="eyebrow" id="study-breadcrumb">UFMG · MATERIAL DE EXEMPLO</div><h1 id="study-title">Introdução à química</h1><p class="subtitle" id="study-count">Tópico 1 de 5 · 8 min de leitura · Conteúdo demonstrativo</p></div>
+        <div class="study-layout">
+          <div>
+            <article class="card study-card"><h2 style="font-size:16px">O que você vai aprender</h2><p id="lesson-summary">Uma visão geral para compreender o conteúdo deste tópico.</p><div class="resource-tags"><span class="tag">Conceitos essenciais</span><span class="tag">Na prova</span><span class="tag">Ponto de atenção</span></div></article>
+            <article class="card study-card"><h2 id="lesson-heading">Matéria e suas propriedades</h2><div id="lesson-body"></div></article>
+            <article class="card study-card"><h2>Pratique com questões extras</h2><p>Questões de exemplo para revisar o tópico.</p><div id="practice-questions"></div></article>
+            <div class="notice" id="guide-notice">Conteúdo demonstrativo criado para apresentar a organização da apostila. Confira conceitos e respostas com suas referências de estudo.</div>
+          </div>
+          <aside>
+            <article class="card toc-card"><h3>Sua apostila</h3><small id="toc-institution">UFMG · Exemplo de prova</small><div class="progress-top"><span>Tópicos incluídos</span><strong id="toc-count">1 de 5</strong></div><div class="toc-progress"><span></span></div><ul class="toc-list" id="toc-list"></ul><button class="btn btn-outline" id="download-guide" style="width:100%;margin-top:14px">↓ Baixar material</button></article>
+              <article class="chat-card"><h3 style="font-size:12px;color:#604e9c">Uma dúvida?</h3><p>Faça uma pergunta sobre o tópico atual.</p><div class="chat-input"><input id="question-input" placeholder="Escreva sua pergunta..." aria-label="Sua pergunta"><button id="ask-question" aria-label="Enviar pergunta">→</button></div><div id="assistant-response" class="answer" aria-live="polite"></div></article>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-progresso">
+        <div class="page-title"><div class="eyebrow">SUA ROTINA</div><h1>Meu progresso</h1><p class="subtitle">Uma visão simples dos seus materiais e tópicos de estudo.</p></div>
+        <div class="stats"><article class="stat"><div class="stat-icon"><span>▤</span></div><div><small>Provas organizadas</small><strong>3</strong><span class="trend">Na sua biblioteca</span></div></article><article class="stat"><div class="stat-icon purple"><span>✓</span></div><div><small>Tópicos revisados</small><strong>5</strong><span class="trend" style="color:var(--purple)">De 12 tópicos de exemplo</span></div></article><article class="stat"><div class="stat-icon amber"><span>◷</span></div><div><small>Leituras salvas</small><strong>6</strong><span class="trend" style="color:var(--amber)">Para consultar depois</span></div></article></div>
+        <div class="section-head"><div><h2>Seu plano de estudo</h2><p>Exemplo de acompanhamento para uma prova.</p></div></div>
+        <article class="card"><div class="proof-row"><div class="file-icon">📘</div><div class="proof-meta"><strong>UFMG · Prova de exemplo</strong><small>Conteúdos sugeridos para estudo</small></div><span class="badge">DEMONSTRAÇÃO</span></div><div class="progress-top"><span>Andamento</span><strong>5 de 12 tópicos</strong></div><div class="progress"><span></span></div><div class="next-topic"><div><small>PRÓXIMA SUGESTÃO</small><strong>Retomar a apostila de química</strong></div><button class="btn btn-primary" data-goto="apostila">Continuar →</button></div></article>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./runtime-config.js"></script>
+  <script type="module" src="./app.js"></script>
+
+  <script>
+    const iconBook = '<svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z" stroke="currentColor" stroke-width="1.7"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h8m-8 4h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+    const readingResources = [
+      {
+        title: 'FUVEST 2027 · Leituras obrigatórias',
+        source: 'Lista oficial · FUVEST/USP',
+        area: 'literatura',
+        exam: 'fuvest',
+        examLabel: 'FUVEST · USP 2027',
+        official: true,
+        desc: 'As nove obras indicadas para o Vestibular da USP 2027. Consulte o edital e a página oficial da edição para conferir a lista.',
+        items: [
+          'Opúsculo Humanitário (1853) — Nísia Floresta',
+          'Nebulosas (1872) — Narcisa Amália',
+          'Memórias de Martha (1899) — Julia Lopes de Almeida',
+          'Caminho de pedras (1937) — Rachel de Queiroz',
+          'A paixão segundo G. H. (1964) — Clarice Lispector',
+          'Geografia (1967) — Sophia de Mello Breyner Andresen',
+          'Balada de amor ao vento (1990) — Paulina Chiziane',
+          'Canção para ninar menino grande (2018) — Conceição Evaristo',
+          'A visão das plantas (2019) — Djaimilia Pereira de Almeida'
+        ],
+        url: 'https://www.fuvest.br/vestibular-da-usp/'
+      },
+      {
+        title: 'Unicamp 2027 · Leituras obrigatórias',
+        source: 'Lista oficial · Comvest/Unicamp',
+        area: 'literatura',
+        exam: 'unicamp',
+        examLabel: 'Unicamp 2027',
+        official: true,
+        desc: 'As nove obras indicadas pela Comvest para o Vestibular Unicamp 2027. A seleção dos contos e das canções também está detalhada na página oficial.',
+        items: [
+          'A vida não é útil — Ailton Krenak',
+          'Prosas seguidas de odes mínimas — José Paulo Paes',
+          'Morangos mofados (seis contos escolhidos) — Caio Fernando Abreu',
+          'Vida e morte de M.J. Gonzaga de Sá — Lima Barreto',
+          'No seu pescoço — Chimamanda Ngozi Adichie',
+          'Olhos d’água — Conceição Evaristo',
+          'Memórias Póstumas de Brás Cubas — Machado de Assis',
+          'Canções escolhidas (14 canções indicadas) — Paulo César Pinheiro',
+          'Os funerais da Mamãe Grande — Gabriel García Márquez'
+        ],
+        url: 'https://www.unicamp.br/noticias/2025/03/25/comvest-divulga-listas-de-livros-para-os-vestibulares-2027-2028-e-2029/'
+      },
+      {
+        title: 'Unicamp 2028 · Leituras obrigatórias',
+        source: 'Lista oficial · Comvest/Unicamp',
+        area: 'literatura',
+        exam: 'unicamp',
+        examLabel: 'Unicamp 2028',
+        official: true,
+        desc: 'As nove obras indicadas pela Comvest para o Vestibular Unicamp 2028, conforme a lista oficial da edição.',
+        items: [
+          'Prosas seguidas de odes mínimas — José Paulo Paes',
+          'Vida e morte de M.J. Gonzaga de Sá — Lima Barreto',
+          'No seu pescoço — Chimamanda Ngozi Adichie',
+          'Memórias Póstumas de Brás Cubas — Machado de Assis',
+          'Canções escolhidas (14 canções indicadas) — Paulo César Pinheiro',
+          'Os funerais da Mamãe Grande — Gabriel García Márquez',
+          'O direito à literatura — Antonio Candido',
+          'O quinze — Rachel de Queiroz',
+          'Quarenta dias — Maria Valéria Rezende'
+        ],
+        url: 'https://www.unicamp.br/noticias/2025/03/25/comvest-divulga-listas-de-livros-para-os-vestibulares-2027-2028-e-2029/'
+      },
+      {
+        title: 'PAS/UnB 1 · Obras indicadas 2026–2028',
+        source: 'Lista oficial · Cebraspe/UnB',
+        area: 'geral',
+        exam: 'pas-unb',
+        examLabel: 'PAS/UnB 1 · 2026–2028',
+        official: true,
+        desc: 'Consulte e baixe o documento oficial com a lista de obras do Subprograma 2026–2028. A seleção do PAS é interdisciplinar e reúne diferentes linguagens e objetos de conhecimento.',
+        url: 'https://cdn.cebraspe.org.br/wp-content/uploads/2026/01/Obras-PAS-1-2026-2028.pdf'
+      },
+      { title: 'Química: introdução e conceitos básicos', source: 'Khan Academy · apoio geral', area: 'quimica', exam: 'geral', desc: 'Reveja matéria, propriedades e conceitos iniciais com explicações e exercícios. Material complementar, não uma lista oficial de vestibular.', url: 'https://pt.khanacademy.org/science/chemistry' },
+      { title: 'Estequiometria e reações químicas', source: 'Khan Academy · apoio geral', area: 'quimica', exam: 'geral', desc: 'Estude equações químicas, proporções e cálculos relacionados às reações.', url: 'https://pt.khanacademy.org/science/chemistry/chemical-reactions-stoichiome' },
+      { title: 'Matemática: conteúdos e exercícios', source: 'Khan Academy · apoio geral', area: 'matematica', exam: 'geral', desc: 'Pratique álgebra, funções, geometria e outros temas frequentes em provas.', url: 'https://pt.khanacademy.org/math' },
+      { title: 'Gramática e língua portuguesa', source: 'Khan Academy · apoio geral', area: 'linguagens', exam: 'geral', desc: 'Explore recursos de leitura, escrita e análise da língua portuguesa.', url: 'https://pt.khanacademy.org/humanities/grammar' },
+      { title: 'Biblioteca Digital de Teses e Dissertações', source: 'BDTD · apoio geral', area: 'geral', exam: 'geral', desc: 'Consulte pesquisas acadêmicas para aprofundar temas e encontrar referências.', url: 'https://bdtd.ibict.br/vufind/' },
+      { title: 'Portal de Periódicos', source: 'CAPES · apoio geral', area: 'geral', exam: 'geral', desc: 'Acesse periódicos e materiais acadêmicos para leituras complementares.', url: 'https://www-periodicos-capes-gov-br.ezl.periodicos.capes.gov.br/' }
+    ];
+    const examResources = [
+      { title: 'UFMG · Copeve', source: 'Universidade Federal de Minas Gerais', type: 'universidade', desc: 'Acesse o portal da Copeve e procure editais, provas e informações dos processos seletivos.', url: 'https://site.copeve.ufmg.br/' },
+      { title: 'ENEM · Provas e gabaritos', source: 'Inep', type: 'nacional', desc: 'Consulte provas e gabaritos oficiais do Exame Nacional do Ensino Médio.', url: 'https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos' },
+      { title: 'Fuvest · Acervo de provas', source: 'Fundação Universitária para o Vestibular', type: 'universidade', desc: 'Encontre edições anteriores e materiais oficiais do vestibular da USP.', url: 'https://www.fuvest.br/acervo-fuvest/' },
+      { title: 'Unicamp · Vestibular', source: 'Comvest', type: 'universidade', desc: 'Consulte a página oficial da Comissão Permanente para os Vestibulares da Unicamp.', url: 'https://www.comvest.unicamp.br/' }
+    ];
+    const sampleTopics = [
+      { name:'Introdução à química', detail:'Matéria, substâncias e propriedades' },
+      { name:'Ligações químicas', detail:'Ligações iônicas, covalentes e metálicas' },
+      { name:'Estequiometria', detail:'Relações quantitativas nas reações' },
+      { name:'Soluções', detail:'Concentração e diluição' },
+      { name:'Funções orgânicas', detail:'Grupos funcionais e nomenclatura' }
+    ];
+    const lessonLibrary = {
+      'Introdução à química': {
+        heading:'Matéria e suas propriedades',
+        intro:'A química estuda a composição, as propriedades e as transformações da matéria. Tudo o que tem massa e ocupa espaço é matéria: a água de um copo, o ar e os materiais que compõem os seres vivos.',
+        subheading:'Substância pura ou mistura?',
+        explanation:'Uma substância pura tem composição definida, como a água destilada. Já uma mistura combina duas ou mais substâncias — por exemplo, água com sal dissolvido.',
+        tip:'observe se a questão descreve uma ou várias fases visíveis.',
+        question:'1. Qual alternativa descreve uma mistura homogênea?',
+        options:'A) Água e óleo<br>B) Água com sal dissolvido<br>C) Areia e água',
+        answer:'<strong>Resposta: B.</strong> Quando o sal se dissolve por completo, a mistura apresenta uma única fase visível. Água e óleo, assim como areia e água, formam misturas heterogêneas.'
+      },
+      'Ligações químicas': {
+        heading:'Como os átomos se ligam',
+        intro:'As ligações químicas são interações que mantêm átomos unidos. A distribuição dos elétrons mais externos ajuda a explicar por que diferentes elementos formam compostos.',
+        subheading:'Iônica, covalente ou metálica?',
+        explanation:'Em geral, a ligação iônica envolve transferência de elétrons; a covalente envolve compartilhamento; e a metálica é descrita por elétrons deslocalizados entre átomos metálicos.',
+        tip:'identifique quais elementos participam e se há transferência ou compartilhamento de elétrons.',
+        question:'1. Em uma ligação covalente, o que ocorre entre os átomos?',
+        options:'A) Compartilhamento de pares de elétrons<br>B) Formação exclusiva de íons positivos<br>C) Desaparecimento dos elétrons',
+        answer:'<strong>Resposta: A.</strong> Na ligação covalente, os átomos compartilham pares de elétrons.'
+      },
+      'Estequiometria': {
+        heading:'Proporções nas reações',
+        intro:'A estequiometria relaciona as quantidades de reagentes e produtos em uma equação química balanceada. Os coeficientes indicam a proporção entre as partículas ou quantidades em mol.',
+        subheading:'Comece pelo balanceamento',
+        explanation:'Antes de calcular quantidades, confira se cada elemento aparece em igual número nos dois lados da equação. Depois, use os coeficientes como proporção molar.',
+        tip:'balanceie a equação antes de converter entre massa, mol e partículas.',
+        question:'1. O que representam os coeficientes de uma equação balanceada?',
+        options:'A) A proporção entre reagentes e produtos<br>B) A temperatura da reação<br>C) O estado físico de todos os compostos',
+        answer:'<strong>Resposta: A.</strong> Os coeficientes indicam as proporções estequiométricas entre as espécies da reação.'
+      },
+      'Soluções': {
+        heading:'Concentração de soluções',
+        intro:'Uma solução é uma mistura homogênea formada por soluto e solvente. A concentração expressa quanto soluto existe em determinada quantidade de solução.',
+        subheading:'Diluir não é remover soluto',
+        explanation:'Na diluição, adiciona-se solvente e o volume aumenta; a quantidade de soluto permanece a mesma. Por isso, a concentração final diminui.',
+        tip:'ao diluir, a quantidade de soluto se conserva, embora o volume mude.',
+        question:'1. O que acontece à concentração quando se adiciona solvente à solução?',
+        options:'A) Aumenta necessariamente<br>B) Diminui, se a quantidade de soluto não mudar<br>C) O soluto vira solvente',
+        answer:'<strong>Resposta: B.</strong> Ao adicionar solvente sem alterar a quantidade de soluto, a solução fica mais diluída.'
+      },
+      'Funções orgânicas': {
+        heading:'Grupos funcionais',
+        intro:'As funções orgânicas agrupam compostos por características estruturais comuns. Os grupos funcionais ajudam a reconhecer famílias como álcoois, aldeídos, cetonas e ácidos carboxílicos.',
+        subheading:'Observe a estrutura',
+        explanation:'Para identificar uma função, procure o grupo de átomos característico e sua posição na cadeia. Um grupo hidroxila ligado a carbono saturado, por exemplo, caracteriza um álcool.',
+        tip:'analise o grupo funcional junto com a posição dele na cadeia carbônica.',
+        question:'1. Qual grupo caracteriza os álcoois?',
+        options:'A) Hidroxila ligada a carbono saturado<br>B) Grupo carboxila<br>C) Apenas uma ligação dupla entre carbonos',
+        answer:'<strong>Resposta: A.</strong> A função álcool apresenta grupo hidroxila (—OH) ligado a carbono saturado.'
+      }
+    };
+    let uploadedFile = null;
+    let selectedTopics = sampleTopics.map((topic) => topic.name);
+    let currentTopics = sampleTopics;
+    let currentInstitution = 'UFMG';
+    let studyContent = null;
+    let toastTimer;
+    const suggestedTopicsByArea = {
+      matematica:['Razão e proporção','Porcentagem','Função do 1º grau','Função do 2º grau','Geometria plana','Probabilidade'],
+      fisica:['Leis de Newton','Cinemática','Trabalho e energia','Eletricidade','Ondulatória','Termologia'],
+      quimica:['Estequiometria','Ligações químicas','Soluções e concentração','pH e equilíbrio químico','Química orgânica','Tabela periódica'],
+      biologia:['Genética mendeliana','Ecologia','Divisão celular','Fisiologia humana','Evolução','Citologia'],
+      linguagens:['Interpretação de texto','Conjunções e relações de sentido','Figuras de linguagem','Gêneros textuais','Concordância verbal','Funções da linguagem'],
+      historia:['Brasil Colônia','Independência do Brasil','Era Vargas','Ditadura militar no Brasil','Revolução Francesa','Revolução Industrial'],
+      geografia:['Clima e vegetação do Brasil','Urbanização','Globalização','Cartografia e escalas','Geopolítica','Questões ambientais'],
+      literatura:['Modernismo brasileiro','Romantismo','Realismo','Figuras de linguagem','Narrador e foco narrativo','Poesia brasileira']
+    };
+    const topicAreaOrder = Object.keys(suggestedTopicsByArea);
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 3000);
+    }
+    function showView(name) {
+      const viewName = document.getElementById('view-' + name) ? name : 'overview';
+      document.querySelectorAll('.view').forEach((view) => view.classList.toggle('active', view.id === 'view-' + viewName));
+      document.querySelectorAll('.nav button').forEach((button) => {
+        const active = button.dataset.view === viewName || (viewName === 'upload' && button.dataset.view === 'provas') || (viewName === 'topics' && button.dataset.view === 'provas');
+        button.classList.toggle('active', active);
+        if (active) button.setAttribute('aria-current', 'page'); else button.removeAttribute('aria-current');
+      });
+      window.scrollTo({ top:0, behavior:'smooth' });
+    }
+    function readingCard(item, index) {
+      const colors = ['','green','amber'];
+      const areaNames = { quimica:'Química', matematica:'Matemática', linguagens:'Linguagens', literatura:'Literatura', geral:'Geral' };
+      const area = areaNames[item.area] || item.area;
+      const works = item.items ? '<details class="reading-list"><summary>Ver as ' + item.items.length + ' obras</summary><ul>' + item.items.map((work) => '<li>' + work + '</li>').join('') + '</ul></details>' : '';
+      const searchText = [item.title, item.source, item.area, item.desc, ...(item.items || [])].join(' ').toLowerCase();
+      const examTag = item.examLabel || 'Apoio geral';
+      const linkLabel = item.official ? (item.exam === 'pas-unb' ? 'Baixar lista oficial ↗' : 'Conferir lista oficial ↗') : 'Abrir material ↗';
+      return '<article class="card resource-card" data-area="' + item.area + '" data-exam="' + item.exam + '" data-search="' + searchText + '"><div class="resource-top"><span class="resource-icon ' + colors[index % 3] + '">' + iconBook + '</span><span class="tag">' + item.source + '</span></div><div class="resource-tags"><span class="tag">' + area + '</span><span class="tag">' + examTag + '</span></div><h3>' + item.title + '</h3><p>' + item.desc + '</p>' + works + '<a class="text-link" href="' + item.url + '" target="_blank" rel="noopener noreferrer">' + linkLabel + '</a></article>';
+    }
+    function examCard(item) {
+      const icon = '<svg viewBox="0 0 24 24" fill="none"><path d="M6 3.5h8l4 4V20H6zM14 4v4h4M9 12h6m-6 3h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      const category = item.type === 'nacional' ? 'Exame nacional' : 'Vestibular';
+      return '<article class="card exam-card" data-type="' + item.type + '" data-search="' + (item.title + ' ' + item.source + ' ' + item.desc).toLowerCase() + '"><div class="exam-head"><div class="file-icon">' + icon + '</div><div class="proof-meta"><strong>' + item.title + '</strong><small>' + item.source + '</small></div></div><p>' + item.desc + '</p><div class="exam-bottom"><span class="tag">' + category + '</span><a class="btn btn-outline" href="' + item.url + '" target="_blank" rel="noopener noreferrer">Acessar acervo oficial ↗</a></div></article>';
+    }
+    function populateResources() {
+      document.getElementById('overview-readings').innerHTML = readingResources.slice(0,3).map(readingCard).join('');
+      document.getElementById('all-readings').innerHTML = readingResources.map(readingCard).join('');
+      document.getElementById('overview-exams').innerHTML = examResources.slice(0,2).map(examCard).join('');
+      document.getElementById('all-exams').innerHTML = examResources.map(examCard).join('');
+    }
+    function filterCards(inputId, selectId, containerId, kind) {
+      const query = document.getElementById(inputId).value.trim().toLowerCase();
+      const filter = document.getElementById(selectId).value;
+      document.querySelectorAll('#' + containerId + ' > article').forEach((card) => {
+        const matchesQuery = card.dataset.search.includes(query);
+        const matchesFilter = filter === 'todas' || card.dataset[kind] === filter;
+        card.hidden = !(matchesQuery && matchesFilter);
+      });
+    }
+    function setFile(file) {
+      if (!file) return;
+      const allowed = /\.pdf$/i.test(file.name) && (!file.type || file.type === 'application/pdf');
+      if (!allowed) {
+        uploadedFile = null;
+        document.getElementById('proof-file').value = '';
+        document.getElementById('file-status').textContent = 'PDF até 20 MB';
+        showToast('Escolha um arquivo PDF válido.');
+        return;
+      }
+      if (file.size > 20 * 1024 * 1024) {
+        uploadedFile = null;
+        document.getElementById('proof-file').value = '';
+        document.getElementById('file-status').textContent = 'PDF até 20 MB';
+        showToast('O arquivo excede o limite de 20 MB.');
+        return;
+      }
+      uploadedFile = file;
+      document.getElementById('file-status').textContent = file.name + ' · ' + (file.size / 1024 / 1024).toFixed(2) + ' MB';
+    }
+    function renderTopics() {
+      const host = document.getElementById('topic-list');
+      host.replaceChildren();
+      currentTopics.forEach((topic) => {
+        const label = document.createElement('label');
+        label.className = 'topic-item';
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = topic.name;
+        checkbox.checked = selectedTopics.includes(topic.name);
+        const copy = document.createElement('span');
+        const name = document.createElement('strong');
+        name.textContent = topic.name;
+        const detail = document.createElement('small');
+        detail.textContent = topic.detail || topic.description || topic.area || '';
+        copy.append(name, detail);
+        label.append(checkbox, copy);
+        host.append(label);
+      });
+      host.querySelectorAll('input').forEach((input) => input.addEventListener('change', () => {
+        selectedTopics = Array.from(host.querySelectorAll('input:checked')).map((checkbox) => checkbox.value);
+      }));
+      renderTopicSuggestions();
+    }
+    function getTopicSuggestionAreas() {
+      const counts = new Map(topicAreaOrder.map((area, index) => [area, { count:0, order:index }]));
+      const aliases = [
+        ['matematica', /matem|aritmet|algebra|geometr|funcao|equacao/],
+        ['fisica', /fisic|cinematic|energia|forca|movimento|optic|ondulator|termodinam/],
+        ['quimica', /quim|reac|atomo|mol\b|acid|base|soluc/],
+        ['biologia', /biolog|celul|genet|ecolog|organism|evoluc|fisiolog|osmose/],
+        ['literatura', /literatur|romantismo|modernismo|realismo|poesia/],
+        ['linguagens', /portugu|lingu|gramat|texto|conjunc/],
+        ['historia', /hist/],
+        ['geografia', /geograf|cartograf|clima|urbaniz|globaliz/]
+      ];
+      for (const topic of currentTopics) {
+        const text = (topic.name + ' ' + topic.area + ' ' + topic.description)
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+        for (const [area, pattern] of aliases) {
+          if (pattern.test(text)) {
+            counts.get(area).count += 1;
+            break;
+          }
+        }
+      }
+      return [...counts.entries()]
+        .sort((left, right) => right[1].count - left[1].count || left[1].order - right[1].order)
+        .map(([area]) => area);
+    }
+    function renderTopicSuggestions() {
+      const host = document.getElementById('topic-suggestions');
+      host.replaceChildren();
+      const normalize = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      const existing = new Set(currentTopics.map((topic) => normalize(topic.name)));
+      const areas = getTopicSuggestionAreas();
+      const suggestions = [];
+      for (let index = 0; index < Math.max(...areas.map((area) => suggestedTopicsByArea[area].length)); index += 1) {
+        for (const area of areas) {
+          const suggestion = suggestedTopicsByArea[area][index];
+          if (suggestion && !existing.has(normalize(suggestion))) suggestions.push(suggestion);
+        }
+      }
+      for (const name of suggestions.slice(0, 8)) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'topic-suggestion';
+        button.textContent = '+ ' + name;
+        button.addEventListener('click', () => addTopic(name));
+        host.append(button);
+      }
+    }
+    function addTopic(suggestedName) {
+      const input = document.getElementById('new-topic');
+      const name = (suggestedName || input.value).trim();
+      if (!name) { showToast('Digite o nome do tópico que deseja adicionar.'); return; }
+      if (currentTopics.some((topic) => topic.name.toLocaleLowerCase('pt-BR') === name.toLocaleLowerCase('pt-BR'))) {
+        showToast('Esse tópico já está na lista.');
+        return;
+      }
+      currentTopics.push({
+        name,
+        area:'Tópico adicional',
+        description:'Assunto adicionado manualmente pelo estudante.',
+        detail:'Adicionado manualmente'
+      });
+      selectedTopics.push(name);
+      input.value = '';
+      renderTopics();
+      input.focus();
+    }
+    function renderLesson(topicName, index, included) {
+      const guide = studyContent?.find((item) => item.name === topicName);
+      const countText = 'Tópico ' + (index + 1) + ' de ' + included.length + ' · Conteúdo ' + (guide ? 'gerado pela IA' : 'demonstrativo');
+      document.getElementById('study-title').textContent = topicName;
+      document.getElementById('study-count').textContent = countText;
+      document.getElementById('toc-count').textContent = (index + 1) + ' de ' + included.length;
+      document.querySelector('.toc-progress span').style.width = ((index + 1) / included.length * 100) + '%';
+      const body = document.getElementById('lesson-body');
+      const questions = document.getElementById('practice-questions');
+      body.replaceChildren();
+      questions.replaceChildren();
+      const lesson = lessonLibrary[topicName];
+      document.getElementById('lesson-heading').textContent = guide?.name || lesson?.heading || topicName;
+      document.getElementById('lesson-summary').textContent = guide?.overview || lesson?.intro || 'Estude os principais conceitos relacionados a este tópico.';
+      if (!guide && lesson) {
+        const intro = document.createElement('p');
+        intro.textContent = lesson.intro;
+        const subheading = document.createElement('h3');
+        subheading.textContent = lesson.subheading;
+        const explanation = document.createElement('p');
+        explanation.textContent = lesson.explanation;
+        const tip = document.createElement('div');
+        tip.className = 'study-callout';
+        const tipLabel = document.createElement('strong');
+        tipLabel.textContent = 'Dica de prova: ';
+        tip.append(tipLabel, document.createTextNode(lesson.tip));
+        body.append(intro, subheading, explanation, tip);
+        const question = document.createElement('div');
+        question.className = 'question';
+        const questionTitle = document.createElement('strong');
+        questionTitle.textContent = lesson.question;
+        const optionList = document.createElement('ol');
+        optionList.type = 'A';
+        lesson.options.split('<br>').forEach((option) => {
+          const item = document.createElement('li');
+          item.textContent = option.replace(/^[A-D]\)\s*/, '');
+          optionList.append(item);
+        });
+        const reveal = document.createElement('button');
+        reveal.className = 'reveal-answer';
+        reveal.textContent = 'VER RESPOSTA COMENTADA ↓';
+        const answer = document.createElement('div');
+        answer.className = 'answer';
+        answer.textContent = lesson.answer.replace(/<[^>]*>/g, '');
+        question.append(questionTitle, optionList, reveal, answer);
+        questions.append(question);
+        return;
+      }
+      if (!guide) return;
+      const details = Array.isArray(guide.sections) ? guide.sections : [];
+      const intro = document.createElement('p');
+      intro.textContent = guide.overview;
+      body.append(intro);
+      details.forEach((section) => {
+        const sectionHeading = document.createElement('h3');
+        sectionHeading.textContent = section.heading;
+        const sectionText = document.createElement('p');
+        sectionText.textContent = section.explanation;
+        body.append(sectionHeading, sectionText);
+      });
+      const pointsHeading = document.createElement('h3');
+      pointsHeading.textContent = 'Pontos-chave';
+      const points = document.createElement('ul');
+      points.style.cssText = 'padding-left:19px;color:#526477;font-size:12px;line-height:1.7';
+      (guide.keyPoints || []).forEach((point) => {
+        const item = document.createElement('li');
+        item.textContent = point;
+        points.append(item);
+      });
+      body.append(pointsHeading, points);
+      const tip = document.createElement('div');
+      tip.className = 'study-callout';
+      const tipLabel = document.createElement('strong');
+      tipLabel.textContent = 'Dica de prova: ';
+      tip.append(tipLabel, document.createTextNode(guide.examTip || 'Revise os conceitos relacionados a este tópico.'));
+      body.append(tip);
+      (guide.questions || []).forEach((item, questionIndex) => {
+        const card = document.createElement('div');
+        card.className = 'question';
+        const title = document.createElement('strong');
+        title.textContent = (questionIndex + 1) + '. ' + item.question;
+        const list = document.createElement('ol');
+        list.type = 'A';
+        (item.options || []).forEach((option) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = option;
+          list.append(listItem);
+        });
+        const button = document.createElement('button');
+        button.className = 'reveal-answer';
+        button.textContent = 'VER RESPOSTA COMENTADA ↓';
+        const answerBox = document.createElement('div');
+        answerBox.className = 'answer';
+        const answerIndex = Number.isInteger(item.answerIndex) ? item.answerIndex : -1;
+        const correctOption = item.options?.[answerIndex];
+        answerBox.textContent = correctOption
+          ? 'Resposta: ' + correctOption + '. ' + item.explanation
+          : item.explanation;
+        card.append(title, list, button, answerBox);
+        questions.append(card);
+      });
+    }
+    function renderToc() {
+      const included = currentTopics.filter((topic) => selectedTopics.includes(topic.name));
+      const host = document.getElementById('toc-list');
+      host.replaceChildren();
+      included.forEach((topic, index) => {
+        const listItem = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = (index + 1) + '. ' + topic.name;
+        button.classList.toggle('selected', index === 0);
+        button.addEventListener('click', () => {
+          host.querySelectorAll('button').forEach((item) => item.classList.toggle('selected', item === button));
+          renderLesson(topic.name, index, included);
+        });
+        listItem.append(button);
+        host.append(listItem);
+      });
+      renderLesson(included[0].name, 0, included);
+    }
+    function downloadDemo() {
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
+        '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+      })[character]);
+      const topics = currentTopics.filter((topic) => selectedTopics.includes(topic.name));
+      const printable = '<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Apostila AprovaIA</title><style>body{font:16px Arial,sans-serif;max-width:760px;margin:50px auto;color:#172b45;line-height:1.7}h1,h2{color:#245e5a}section{page-break-inside:avoid}aside{background:#eaf3f2;padding:15px}@media print{body{margin:20mm}}</style><h1>Apostila de estudos · ' + escapeHtml(currentInstitution) + '</h1><p>Material de apoio gerado pelo AprovaIA. Confira os conteúdos com suas referências.</p>' + topics.map((topic) => {
+        const guide = studyContent?.find((item) => item.name === topic.name);
+        if (!guide) {
+          const lesson = lessonLibrary[topic.name];
+          return '<section><h2>' + escapeHtml(topic.name) + '</h2><p>' + escapeHtml(lesson?.intro || topic.detail || '') + '</p><p>Conteúdo demonstrativo.</p></section>';
+        }
+        const sections = (guide.sections || []).map((section) => '<h3>' + escapeHtml(section.heading) + '</h3><p>' + escapeHtml(section.explanation) + '</p>').join('');
+        const questions = (guide.questions || []).map((item, index) => {
+          const answerIndex = Number.isInteger(item.answerIndex) ? item.answerIndex : -1;
+          const answer = item.options?.[answerIndex];
+          return '<p><strong>' + (index + 1) + '. ' + escapeHtml(item.question) + '</strong></p><ol>' + (item.options || []).map((option) => '<li>' + escapeHtml(option) + '</li>').join('') + '</ol><p><strong>Resposta comentada:</strong> ' + (answer ? escapeHtml(answer) + '. ' : '') + escapeHtml(item.explanation) + '</p>';
+        }).join('');
+        return '<section><h2>' + escapeHtml(guide.name) + '</h2><p>' + escapeHtml(guide.overview) + '</p>' + sections + '<h3>Pontos-chave</h3><ul>' + (guide.keyPoints || []).map((point) => '<li>' + escapeHtml(point) + '</li>').join('') + '</ul><aside><strong>Dica de prova:</strong> ' + escapeHtml(guide.examTip) + '</aside><h3>Questões para praticar</h3>' + questions + '</section>';
+      }).join('') + '</html>';
+      const blob = new Blob([printable], { type:'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'apostila-aprovaia.html';
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showToast('Apostila baixada em HTML. Abra o arquivo e escolha imprimir como PDF.');
+    }
+
+    populateResources();
+    const today = new Date();
+    document.getElementById('today-label').textContent = new Intl.DateTimeFormat('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric' }).format(today).toUpperCase();
+    document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => showView(button.dataset.view)));
+    document.querySelectorAll('[data-goto]').forEach((button) => button.addEventListener('click', () => showView(button.dataset.goto)));
+    document.getElementById('exam-search').addEventListener('input', () => filterCards('exam-search','exam-filter','all-exams','type'));
+    document.getElementById('exam-filter').addEventListener('change', () => filterCards('exam-search','exam-filter','all-exams','type'));
+    function filterReadings() {
+      const query = document.getElementById('reading-search').value.trim().toLowerCase();
+      const area = document.getElementById('reading-filter').value;
+      const exam = document.getElementById('reading-exam-filter').value;
+      document.querySelectorAll('#all-readings > article').forEach((card) => {
+        const matchesQuery = card.dataset.search.includes(query);
+        const matchesArea = area === 'todas' || card.dataset.area === area;
+        const matchesExam = exam === 'todas' || card.dataset.exam === exam;
+        card.hidden = !(matchesQuery && matchesArea && matchesExam);
+      });
+    }
+    document.getElementById('reading-search').addEventListener('input', filterReadings);
+    document.getElementById('reading-filter').addEventListener('change', filterReadings);
+    document.getElementById('reading-exam-filter').addEventListener('change', filterReadings);
+    document.getElementById('proof-file').addEventListener('change', (event) => setFile(event.target.files[0]));
+    document.getElementById('add-topic').addEventListener('click', () => addTopic());
+    document.getElementById('new-topic').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addTopic();
+      }
+    });
+    const dropzone = document.getElementById('dropzone');
+    ['dragenter','dragover'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => { event.preventDefault(); dropzone.classList.add('dragover'); }));
+    ['dragleave','drop'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => { event.preventDefault(); dropzone.classList.remove('dragover'); }));
+    dropzone.addEventListener('drop', (event) => setFile(event.dataTransfer.files[0]));
+    document.getElementById('analyze-button').addEventListener('click', async (event) => {
+      const text = document.getElementById('proof-text').value.trim();
+      if (!uploadedFile && !text) { showToast('Adicione um arquivo ou cole o texto de uma prova para continuar.'); return; }
+      currentInstitution = document.getElementById('institution').value.trim() || 'Sua prova';
+      const button = event.currentTarget;
+      const originalText = button.textContent;
+      const controller = new AbortController();
+      const requestTimeout = setTimeout(() => controller.abort(), 180000);
+      button.disabled = true;
+      button.textContent = 'Analisando prova (até 3 min)…';
+      try {
+        if (window.approvaia?.demoMode) {
+          currentTopics = sampleTopics;
+          studyContent = null;
+          document.getElementById('topic-caption').textContent = 'Demonstração local para ' + currentInstitution + '. Estes tópicos são exemplos e não foram extraídos do arquivo.';
+          document.getElementById('guide-notice').textContent = 'Conteúdo demonstrativo criado para apresentar a organização da apostila. Confira conceitos e respostas com suas referências de estudo.';
+        } else {
+          const formData = new FormData();
+          if (uploadedFile) formData.append('file', uploadedFile);
+          if (text) formData.append('text', text);
+          formData.append('institution', currentInstitution);
+          formData.append('level', document.getElementById('level').value);
+          const result = await window.approvaia.analyzeProof(formData, controller.signal);
+          currentTopics = result.topics.map((topic) => ({
+            name:topic.name, area:topic.area, description:topic.description, detail:topic.description
+          }));
+          studyContent = null;
+          document.getElementById('topic-caption').textContent = 'A IA encontrou estes tópicos em ' + currentInstitution + '. Revise a lista antes de criar a apostila.';
+        }
+        selectedTopics = currentTopics.map((topic) => topic.name);
+        renderTopics();
+        showView('topics');
+      } catch (error) {
+        showToast(error.name === 'AbortError'
+          ? 'A análise atingiu o tempo limite. Tente novamente com uma prova menor.'
+          : error.message);
+      } finally {
+        clearTimeout(requestTimeout);
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+    document.getElementById('create-study-guide').addEventListener('click', async (event) => {
+      selectedTopics = Array.from(document.querySelectorAll('#topic-list input:checked')).map((input) => input.value);
+      if (!selectedTopics.length) { showToast('Selecione pelo menos um tópico para montar a apostila.'); return; }
+      const button = event.currentTarget;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Preparando ' + selectedTopics.length + ' tópicos…';
+      try {
+        if (window.approvaia?.demoMode) {
+          studyContent = null;
+        } else {
+          const selected = currentTopics.filter((topic) => selectedTopics.includes(topic.name));
+          const batchCount = Math.ceil(selected.length / 2);
+          const controller = new AbortController();
+          const requestTimeout = setTimeout(() => controller.abort(), Math.min(batchCount * 180000, 2147483647));
+          try {
+            const result = await window.approvaia.generateStudyGuide({
+              institution:currentInstitution,
+              level:document.getElementById('level').value,
+              topics:selected.map(({name, area, description}) => ({name, area, description}))
+            }, controller.signal);
+            studyContent = result.topics;
+          } catch (error) {
+            if (error.name === 'AbortError') throw new Error('A geração da apostila atingiu o limite de tempo. Tente novamente.');
+            throw error;
+          } finally {
+            clearTimeout(requestTimeout);
+          }
+        }
+        document.getElementById('guide-notice').textContent = studyContent
+          ? 'Material gerado com IA a partir dos tópicos escolhidos. Confira conceitos, cálculos e respostas com referências confiáveis.'
+          : 'Conteúdo demonstrativo criado para apresentar a organização da apostila. Confira conceitos e respostas com suas referências de estudo.';
+        document.getElementById('study-breadcrumb').textContent = currentInstitution.toUpperCase() + (studyContent ? ' · GERADA COM IA LOCAL' : ' · MATERIAL DE EXEMPLO');
+        document.getElementById('toc-institution').textContent = currentInstitution + (studyContent ? ' · Gerada com IA' : ' · Demonstração');
+        renderToc();
+        showView('apostila');
+      } catch (error) {
+        showToast(error.message);
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('.reveal-answer');
+      if (!button) return;
+      const answer = button.nextElementSibling;
+      answer.classList.toggle('visible');
+      button.textContent = answer.classList.contains('visible') ? 'OCULTAR RESPOSTA ↑' : 'VER RESPOSTA COMENTADA ↓';
+    });
+    document.getElementById('download-guide').addEventListener('click', downloadDemo);
+    document.getElementById('ask-question').addEventListener('click', async () => {
+      const input = document.getElementById('question-input');
+      if (!input.value.trim()) { showToast('Digite uma dúvida para continuar.'); return; }
+      const response = document.getElementById('assistant-response');
+      response.classList.add('visible');
+      response.textContent = window.approvaia?.demoMode
+        ? 'Entre com o Google e inicie o Ollama local para conversar com a IA.'
+        : 'A IA está preparando uma resposta…';
+      if (window.approvaia?.demoMode) return;
+      const button = document.getElementById('ask-question');
+      button.disabled = true;
+      try {
+        const topic = document.getElementById('study-title').textContent;
+        const guide = studyContent?.find((item) => item.name === topic);
+        const context = guide ? JSON.stringify(guide) : '';
+        const result = await window.approvaia.askQuestion({ question:input.value.trim(), topic, context });
+        response.textContent = result.answer;
+        input.value = '';
+      } catch (error) {
+        response.textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+    document.getElementById('help-button').addEventListener('click', () => showToast('Use o menu para explorar provas, leituras e sua apostila.'));
+  </script>
+</body>
+</html>

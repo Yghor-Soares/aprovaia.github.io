@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000">
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#142D4E"/>
+      <stop offset="1" stop-color="#264C70"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#243B53" flood-opacity=".08"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1000" fill="#F6F7F9"/>
+  <rect width="242" height="1000" fill="#FFFFFF"/>
+  <path d="M241 0h1v1000h-1z" fill="#E9EDF1"/>
+  <rect x="28" y="26" width="38" height="38" rx="12" fill="#2C7A73"/>
+  <path d="M39 46l7 7 13-16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="78" y="52" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#172B45">Aprova<tspan fill="#2C7A73">IA</tspan></text>
+  <text x="28" y="111" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#91A0AE">MENU PRINCIPAL</text>
+  <rect x="16" y="128" width="210" height="44" rx="10" fill="#EAF3F2"/>
+  <rect x="32" y="142" width="15" height="15" rx="3" fill="#2C7A73"/>
+  <path d="M35 149h9m-9 4h6" stroke="#fff" stroke-width="1.5"/>
+  <text x="59" y="156" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#245E5A">Visão geral</text>
+  <g font-family="Arial,sans-serif" font-size="14" fill="#657585">
+    <rect x="32" y="195" width="16" height="16" rx="4" fill="none" stroke="#81909E" stroke-width="1.5"/>
+    <text x="59" y="208">Minhas provas</text>
+    <circle cx="40" cy="251" r="8" fill="none" stroke="#81909E" stroke-width="1.5"/>
+    <path d="M40 247v5l3 2" fill="none" stroke="#81909E" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="59" y="256">Meu progresso</text>
+    <path d="M33 301h14m-14 5h14m-14 5h9" stroke="#81909E" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="59" y="310">Materiais salvos</text>
+  </g>
+  <rect x="17" y="847" width="208" height="1" fill="#E9EDF1"/>
+  <circle cx="48" cy="895" r="19" fill="#F5DCCB"/>
+  <text x="48" y="900" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#895B43">LC</text>
+  <text x="78" y="892" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#263B50">Laura Costa</text>
+  <text x="78" y="910" font-family="Arial,sans-serif" font-size="11" fill="#8996A3">Plano gratuito</text>
+  <path d="M205 891l5 5-5 5" fill="none" stroke="#8996A3" stroke-width="1.5"/>
+  <text x="278" y="47" font-family="Arial,sans-serif" font-size="12" fill="#82909E">QUARTA-FEIRA, 6 DE MAIO DE 2026</text>
+  <text x="278" y="82" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#172B45">Olá, Laura! Vamos estudar?</text>
+  <text x="278" y="108" font-family="Arial,sans-serif" font-size="14" fill="#71808E">Transforme sua prova em um plano de estudos feito para você.</text>
+  <rect x="278" y="139" width="1123" height="250" rx="18" fill="url(#hero)"/>
+  <circle cx="1260" cy="214" r="84" fill="#FFFFFF" opacity=".045"/>
+  <circle cx="1335" cy="330" r="115" fill="#FFFFFF" opacity=".04"/>
+  <path d="M1210 178h81v104h-81z" fill="#FFFFFF" opacity=".12"/>
+  <path d="M1225 198h50m-50 13h39m-39 13h46m-46 13h31" stroke="#C4E2DE" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="1290" cy="272" r="25" fill="#78B8A9"/>
+  <path d="M1279 272l8 8 15-17" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="315" y="174" width="116" height="25" rx="12" fill="#FFFFFF" opacity=".13"/>
+  <text x="373" y="191" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing=".7" fill="#BDE1D9">ESTUDE COM FOCO</text>
+  <text x="315" y="240" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#FFFFFF">Sua próxima aprovação começa</text>
+  <text x="315" y="274" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#FFFFFF">com uma prova.</text>
+  <text x="315" y="307" font-family="Arial,sans-serif" font-size="14" fill="#D5E0EA">Envie um PDF ou cole as questões. A IA organiza os tópicos,</text>
+  <text x="315" y="328" font-family="Arial,sans-serif" font-size="14" fill="#D5E0EA">cria explicações e prepara exercícios para praticar.</text>
+  <rect x="315" y="345" width="190" height="36" rx="9" fill="#FFFFFF"/>
+  <text x="410" y="368" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#245E5A">＋  Analisar uma prova</text>
+  <text x="278" y="435" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#172B45">Seu espaço de estudos</text>
+  <text x="278" y="457" font-family="Arial,sans-serif" font-size="12" fill="#82909E">Acompanhe o que você já preparou.</text>
+  <g filter="url(#shadow)">
+    <rect x="278" y="478" width="353" height="113" rx="14" fill="#FFFFFF"/>
+    <rect x="647" y="478" width="353" height="113" rx="14" fill="#FFFFFF"/>
+    <rect x="1016" y="478" width="385" height="113" rx="14" fill="#FFFFFF"/>
+  </g>
+  <circle cx="318" cy="518" r="19" fill="#E8F2EF"/>
+  <path d="M310 518h16m-13-5h10m-10 10h7" stroke="#2C7A73" stroke-width="2" stroke-linecap="round"/>
+  <text x="350" y="512" font-family="Arial,sans-serif" font-size="12" fill="#7A8997">Provas analisadas</text>
+  <text x="350" y="544" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#172B45">3</text>
+  <text x="350" y="565" font-family="Arial,sans-serif" font-size="11" fill="#2C7A73">+1 esta semana</text>
+  <circle cx="687" cy="518" r="19" fill="#F0ECFA"/>
+  <path d="M680 510h14v17h-14zM683 515h8m-8 4h8m-8 4h5" fill="none" stroke="#7965B5" stroke-width="1.6"/>
+  <text x="719" y="512" font-family="Arial,sans-serif" font-size="12" fill="#7A8997">Tópicos para estudar</text>
+  <text x="719" y="544" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#172B45">18</text>
+  <text x="719" y="565" font-family="Arial,sans-serif" font-size="11" fill="#7965B5">em 4 áreas</text>
+  <circle cx="1056" cy="518" r="19" fill="#FBF1E2"/>
+  <path d="M1048 518l6 6 11-13" fill="none" stroke="#C28632" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1088" y="512" font-family="Arial,sans-serif" font-size="12" fill="#7A8997">Questões praticadas</text>
+  <text x="1088" y="544" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#172B45">42</text>
+  <text x="1088" y="565" font-family="Arial,sans-serif" font-size="11" fill="#C28632">Bom ritmo de estudo</text>
+  <text x="278" y="638" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#172B45">Continue de onde parou</text>
+  <text x="1300" y="638" text-anchor="end" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#2C7A73">Ver todos  →</text>
+  <g filter="url(#shadow)">
+    <rect x="278" y="659" width="695" height="255" rx="14" fill="#FFFFFF"/>
+    <rect x="990" y="659" width="411" height="255" rx="14" fill="#FFFFFF"/>
+  </g>
+  <rect x="301" y="683" width="43" height="49" rx="8" fill="#FCECE8"/>
+  <path d="M313 693h19v28h-19zM317 700h11m-11 5h11m-11 5h8" fill="none" stroke="#C66D5D" stroke-width="1.5"/>
+  <text x="359" y="697" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#263B50">UFMG · Vestibular 2025</text>
+  <text x="359" y="717" font-family="Arial,sans-serif" font-size="11" fill="#82909E">Prova enviada em 3 de maio · 12 tópicos identificados</text>
+  <rect x="815" y="687" width="131" height="25" rx="12" fill="#EAF3F2"/>
+  <text x="880" y="704" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" fill="#2C7A73">EM ANDAMENTO</text>
+  <rect x="301" y="748" width="648" height="1" fill="#EDF0F2"/>
+  <text x="301" y="778" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#405367">Progresso da apostila</text>
+  <text x="920" y="778" text-anchor="end" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#2C7A73">5 de 12 tópicos</text>
+  <rect x="301" y="790" width="648" height="7" rx="4" fill="#E8ECEF"/>
+  <rect x="301" y="790" width="270" height="7" rx="4" fill="#2C7A73"/>
+  <text x="301" y="830" font-family="Arial,sans-serif" font-size="11" fill="#82909E">PRÓXIMO TÓPICO</text>
+  <text x="301" y="854" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#263B50">Funções orgânicas</text>
+  <rect x="798" y="827" width="151" height="39" rx="9" fill="#2C7A73"/>
+  <text x="873" y="852" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Continuar estudando →</text>
+  <text x="1014" y="692" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#172B45">Como funciona</text>
+  <circle cx="1032" cy="737" r="13" fill="#EAF3F2"/>
+  <text x="1032" y="742" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#2C7A73">1</text>
+  <text x="1055" y="734" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#405367">Envie sua prova</text>
+  <text x="1055" y="751" font-family="Arial,sans-serif" font-size="10" fill="#82909E">PDF ou questões copiadas</text>
+  <path d="M1032 754v17" stroke="#DAE7E4" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="1032" cy="786" r="13" fill="#EAF3F2"/>
+  <text x="1032" y="791" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#2C7A73">2</text>
+  <text x="1055" y="783" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#405367">Veja os tópicos</text>
+  <text x="1055" y="800" font-family="Arial,sans-serif" font-size="10" fill="#82909E">Conteúdos organizados pela IA</text>
+  <path d="M1032 803v17" stroke="#DAE7E4" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="1032" cy="835" r="13" fill="#EAF3F2"/>
+  <text x="1032" y="840" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#2C7A73">3</text>
+  <text x="1055" y="832" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#405367">Estude e pratique</text>
+  <text x="1055" y="849" font-family="Arial,sans-serif" font-size="10" fill="#82909E">Apostila e questões complementares</text>
+  <text x="278" y="960" font-family="Arial,sans-serif" font-size="10" fill="#A0ABB5">Sua rotina de estudos, mais clara e organizada.</text>
+</svg>

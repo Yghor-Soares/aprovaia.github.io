@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000">
+  <rect width="1440" height="1000" fill="#F6F7F9"/>
+  <rect width="242" height="1000" fill="#FFFFFF"/>
+  <path d="M241 0h1v1000h-1z" fill="#E9EDF1"/>
+  <rect x="28" y="26" width="38" height="38" rx="12" fill="#2C7A73"/>
+  <path d="M39 46l7 7 13-16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="78" y="52" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#172B45">Aprova<tspan fill="#2C7A73">IA</tspan></text>
+  <text x="28" y="111" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#91A0AE">SUA APOSTILA</text>
+  <rect x="16" y="128" width="210" height="42" rx="9" fill="#EAF3F2"/>
+  <circle cx="40" cy="149" r="8" fill="#2C7A73"/>
+  <text x="40" y="153" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#FFFFFF">1</text>
+  <text x="59" y="153" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#245E5A">Introdução à química</text>
+  <g font-family="Arial,sans-serif" font-size="12" fill="#657585">
+    <circle cx="40" cy="195" r="8" fill="#EEF1F4"/><text x="40" y="199" text-anchor="middle" font-size="9" fill="#82909E">2</text><text x="59" y="199">Ligações químicas</text>
+    <circle cx="40" cy="239" r="8" fill="#EEF1F4"/><text x="40" y="243" text-anchor="middle" font-size="9" fill="#82909E">3</text><text x="59" y="243">Estequiometria</text>
+    <circle cx="40" cy="283" r="8" fill="#EEF1F4"/><text x="40" y="287" text-anchor="middle" font-size="9" fill="#82909E">4</text><text x="59" y="287">Soluções</text>
+    <circle cx="40" cy="327" r="8" fill="#EEF1F4"/><text x="40" y="331" text-anchor="middle" font-size="9" fill="#82909E">5</text><text x="59" y="331">Funções orgânicas</text>
+  </g>
+  <rect x="28" y="379" width="186" height="1" fill="#E9EDF1"/>
+  <text x="28" y="410" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="1" fill="#91A0AE">PRÁTICA</text>
+  <rect x="32" y="433" width="16" height="16" rx="3" fill="none" stroke="#81909E" stroke-width="1.4"/>
+  <path d="M36 441l3 3 6-7" fill="none" stroke="#81909E" stroke-width="1.4"/>
+  <text x="59" y="446" font-family="Arial,sans-serif" font-size="12" fill="#657585">Questões complementares</text>
+  <rect x="28" y="847" width="186" height="1" fill="#E9EDF1"/>
+  <rect x="28" y="868" width="186" height="43" rx="9" fill="#FFFFFF" stroke="#DCE4E8"/>
+  <path d="M46 881v16m-6-6 6 6 6-6" fill="none" stroke="#2C7A73" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="65" y="895" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#405367">Baixar apostila</text>
+  <rect x="242" width="1198" height="69" fill="#FFFFFF"/>
+  <path d="M242 68h1198" stroke="#E9EDF1"/>
+  <text x="278" y="42" font-family="Arial,sans-serif" font-size="12" fill="#82909E">MINHAS PROVAS  /  UFMG · VESTIBULAR 2025</text>
+  <rect x="1267" y="18" width="135" height="34" rx="8" fill="#FFFFFF" stroke="#DCE4E8"/>
+  <path d="M1284 28v14m-5-5 5 5 5-5" fill="none" stroke="#2C7A73" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1343" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#405367">Exportar PDF</text>
+  <text x="278" y="117" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#172B45">Introdução à química</text>
+  <rect x="278" y="133" width="132" height="24" rx="12" fill="#EAF3F2"/>
+  <text x="344" y="149" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" fill="#2C7A73">CAIU NA PROVA</text>
+  <text x="425" y="150" font-family="Arial,sans-serif" font-size="11" fill="#82909E">Tópico 1 de 12 · 8 min de leitura</text>
+  <rect x="278" y="177" width="856" height="194" rx="14" fill="#FFFFFF"/>
+  <text x="307" y="215" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#172B45">O que você vai aprender</text>
+  <text x="307" y="242" font-family="Arial,sans-serif" font-size="12" fill="#657585">Uma visão geral para compreender como a matéria é formada e como suas</text>
+  <text x="307" y="262" font-family="Arial,sans-serif" font-size="12" fill="#657585">transformações aparecem nas questões da prova.</text>
+  <rect x="307" y="284" width="245" height="57" rx="9" fill="#F7F9FA"/>
+  <circle cx="329" cy="312" r="12" fill="#EAF3F2"/>
+  <path d="M324 312h10m-5-5v10" stroke="#2C7A73" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="350" y="308" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#405367">Conceitos essenciais</text>
+  <text x="350" y="326" font-family="Arial,sans-serif" font-size="10" fill="#82909E">Matéria, substância e mistura</text>
+  <rect x="565" y="284" width="245" height="57" rx="9" fill="#F7F9FA"/>
+  <circle cx="587" cy="312" r="12" fill="#F0ECFA"/>
+  <path d="M583 312l3 3 6-7" fill="none" stroke="#7965B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="608" y="308" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#405367">Na prova</text>
+  <text x="608" y="326" font-family="Arial,sans-serif" font-size="10" fill="#82909E">Como reconhecer o tema</text>
+  <rect x="823" y="284" width="282" height="57" rx="9" fill="#F7F9FA"/>
+  <circle cx="845" cy="312" r="12" fill="#FBF1E2"/>
+  <path d="M845 305v8m0 4v.5" stroke="#C28632" stroke-width="2" stroke-linecap="round"/>
+  <text x="866" y="308" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#405367">Ponto de atenção</text>
+  <text x="866" y="326" font-family="Arial,sans-serif" font-size="10" fill="#82909E">Diferença entre fenômenos</text>
+  <rect x="278" y="389" width="856" height="278" rx="14" fill="#FFFFFF"/>
+  <text x="307" y="429" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#172B45">Matéria e suas propriedades</text>
+  <text x="307" y="462" font-family="Arial,sans-serif" font-size="12" fill="#526477">A química estuda a composição, as propriedades e as transformações da matéria.</text>
+  <text x="307" y="483" font-family="Arial,sans-serif" font-size="12" fill="#526477">Tudo o que tem massa e ocupa espaço é matéria: a água de um copo, o ar e até</text>
+  <text x="307" y="504" font-family="Arial,sans-serif" font-size="12" fill="#526477">os materiais que compõem os seres vivos.</text>
+  <rect x="307" y="524" width="798" height="1" fill="#EDF0F2"/>
+  <text x="307" y="554" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#405367">Substância pura ou mistura?</text>
+  <text x="307" y="579" font-family="Arial,sans-serif" font-size="12" fill="#526477">Uma substância pura tem composição definida, como a água destilada. Já uma</text>
+  <text x="307" y="600" font-family="Arial,sans-serif" font-size="12" fill="#526477">mistura combina duas ou mais substâncias — por exemplo, água com sal.</text>
+  <rect x="307" y="617" width="798" height="31" rx="7" fill="#EAF3F2"/>
+  <text x="322" y="637" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#245E5A">Dica de prova:</text>
+  <text x="400" y="637" font-family="Arial,sans-serif" font-size="11" fill="#426D68">observe se a questão descreve uma ou várias fases visíveis.</text>
+  <rect x="278" y="685" width="856" height="195" rx="14" fill="#FFFFFF"/>
+  <text x="307" y="724" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#172B45">Pratique com questões extras</text>
+  <text x="307" y="748" font-family="Arial,sans-serif" font-size="11" fill="#82909E">Questões complementares para fixar este tópico.</text>
+  <rect x="307" y="768" width="798" height="86" rx="9" fill="#FAFCFC" stroke="#E5EAED"/>
+  <circle cx="331" cy="792" r="13" fill="#EAF3F2"/>
+  <text x="331" y="796" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" fill="#2C7A73">1</text>
+  <text x="355" y="793" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#405367">Qual alternativa descreve uma mistura homogênea?</text>
+  <text x="355" y="816" font-family="Arial,sans-serif" font-size="11" fill="#657585">A) Água e óleo  ·  B) Água com sal dissolvido  ·  C) Areia e água</text>
+  <text x="355" y="838" font-family="Arial,sans-serif" font-size="10" font-weight="700" fill="#2C7A73">VER RESPOSTA COMENTADA  ↓</text>
+  <rect x="1153" y="177" width="249" height="255" rx="14" fill="#FFFFFF"/>
+  <text x="1177" y="211" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#172B45">Sua apostila</text>
+  <text x="1177" y="233" font-family="Arial,sans-serif" font-size="10" fill="#82909E">UFMG · Vestibular 2025</text>
+  <text x="1177" y="275" font-family="Arial,sans-serif" font-size="11" fill="#657585">Tópicos estudados</text>
+  <text x="1377" y="275" text-anchor="end" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#405367">1 de 12</text>
+  <rect x="1177" y="286" width="201" height="6" rx="3" fill="#E8ECEF"/>
+  <rect x="1177" y="286" width="17" height="6" rx="3" fill="#2C7A73"/>
+  <rect x="1177" y="315" width="201" height="1" fill="#EDF0F2"/>
+  <text x="1177" y="343" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#405367">Neste material</text>
+  <g font-family="Arial,sans-serif" font-size="10" fill="#657585">
+    <circle cx="1183" cy="366" r="3" fill="#2C7A73"/><text x="1194" y="370">Explicação passo a passo</text>
+    <circle cx="1183" cy="389" r="3" fill="#7965B5"/><text x="1194" y="393">Dicas ligadas à prova</text>
+    <circle cx="1183" cy="412" r="3" fill="#C28632"/><text x="1194" y="416">Exercícios e respostas</text>
+  </g>
+  <rect x="1153" y="449" width="249" height="176" rx="14" fill="#FFFFFF"/>
+  <text x="1177" y="484" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#172B45">Tópicos identificados</text>
+  <g font-family="Arial,sans-serif" font-size="10" fill="#657585">
+    <rect x="1177" y="501" width="201" height="26" rx="6" fill="#EAF3F2"/><circle cx="1190" cy="514" r="4" fill="#2C7A73"/><text x="1202" y="518" font-weight="700" fill="#245E5A">Introdução à química</text>
+    <text x="1202" y="548">Ligações químicas</text>
+    <text x="1202" y="574">Estequiometria</text>
+    <text x="1202" y="600">Soluções</text>
+    <text x="1177" y="617" font-size="9" fill="#2C7A73">+ 8 tópicos na lista completa</text>
+  </g>
+  <rect x="1153" y="642" width="249" height="91" rx="12" fill="#F0ECFA"/>
+  <text x="1173" y="670" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#604E9C">Uma dúvida?</text>
+  <text x="1173" y="690" font-family="Arial,sans-serif" font-size="10" fill="#71648F">Pergunte sobre este conteúdo</text>
+  <rect x="1173" y="700" width="209" height="23" rx="6" fill="#FFFFFF"/>
+  <text x="1183" y="716" font-family="Arial,sans-serif" font-size="9" fill="#A0ABB5">Escreva sua pergunta...</text>
+  <text x="278" y="929" font-family="Arial,sans-serif" font-size="10" fill="#A0ABB5">Material de apoio gerado por IA. Confira conceitos e respostas com suas referências de estudo.</text>
+</svg>
